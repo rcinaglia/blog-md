@@ -1,0 +1,41 @@
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* JetBrains Mono is loaded in __root.tsx; wire it to Tailwind's font-mono
+   utility instead of falling back to the default system-mono stack. */
+@theme {
+  --font-mono: "JetBrains Mono";
+}
+
+
+@import 'highlight.js/styles/github-dark.css';
+@import 'nprogress/nprogress.css';
+
+/* match the site's monochrome look instead of nprogress's default blue */
+#nprogress .bar {
+  background: white;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px white, 0 0 5px white;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: white;
+  background-color: #0f0f0f;
+  font-family: "DM Sans";
+}
+
+
