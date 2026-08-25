@@ -1,0 +1,28 @@
+services:
+  blog-md:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: blog-md:latest
+    container_name: blog-md
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # Nitro's node-server preset listens on these; HOST must be 0.0.0.0
+      # so the port published above actually reaches the app.
+      - PORT=3000
+      - HOST=0.0.0.0
+    volumes:
+      # Content directories on the host, bind-mounted to where the app
+      # (running with WORKDIR /app) reads them from: ./content/articles
+      # and ./content/serve.
+      - ./content/articles:/app/content/articles
+      - ./content/serve:/app/content/serve
+
+      # Env file, read by the container's start command
+      # (node --env-file=.env.local .output/server/index.mjs).
+      # Points at .env.local next to this compose file by default; if you
+      # keep your variables in a plain .env instead, change the source
+      # below to ./.env (the target must stay /app/.env.local).
+      - ./.env.local:/app/.env.local:ro
