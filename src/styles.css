@@ -1,5 +1,14 @@
 
 @import "tailwindcss";
+
+/* Never let Tailwind's automatic source detection scan the build output.
+   The client build runs before the SSR build and writes .output, so if
+   .output is scanned the two builds see different files and compile two
+   different stylesheets -- the SSR-rendered <link> then points at a CSS
+   hash that was never emitted (404 -> unstyled page until hydration).
+   Locally .gitignore keeps .output out of the scan, which is why this
+   only ever showed up in Docker, where .gitignore isn't in the image. */
+@source not "../.output";
 @plugin "@tailwindcss/typography";
 
 /* JetBrains Mono is loaded in __root.tsx; wire it to Tailwind's font-mono

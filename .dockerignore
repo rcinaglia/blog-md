@@ -1,7 +1,11 @@
 node_modules
 .output
 .git
-.gitignore
+
+# NOTE: .gitignore is deliberately NOT ignored here. Tailwind's automatic
+# source detection reads it to decide what to skip, so leaving it out of
+# the image makes the in-container build scan different files than a local
+# build does (see the @source rule in src/styles.css).
 Dockerfile
 docker-compose.yaml
 .dockerignore
