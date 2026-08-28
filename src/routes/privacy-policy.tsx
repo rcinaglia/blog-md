@@ -8,7 +8,7 @@ export const Route = createFileRoute('/privacy-policy')({
     head: () => ({
     meta: [
       {
-        title: 'Privacy Policy | rs.cinaglia.dev',
+        title: 'Privacy Policy | cinaglia.dev',
       },
     ]
   }),

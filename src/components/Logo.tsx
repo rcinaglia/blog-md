@@ -11,7 +11,7 @@ export default function Logo() {
       speed={0.3}
       scrambleChars=".:"
     >
-      rs.cinaglia.dev
+      cinaglia.dev
     </ScrambledText>
   </Link>
 }

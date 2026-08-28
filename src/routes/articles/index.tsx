@@ -66,7 +66,7 @@ export const Route = createFileRoute('/articles/')({
   head: () => ({
     meta: [
       {
-        title: 'Articles | rs.cinaglia.dev',
+        title: 'Articles | cinaglia.dev',
       },
     ]
   }),

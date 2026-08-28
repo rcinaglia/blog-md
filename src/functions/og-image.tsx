@@ -211,7 +211,7 @@ export async function getOgImage(slug: string, title: string, coverImage?: strin
                             color: 'rgba(255,255,255,0.6)',
                         }}
                     >
-                        rs.cinaglia.dev
+                        cinaglia.dev
                     </div>
                 </div>
             </div>
