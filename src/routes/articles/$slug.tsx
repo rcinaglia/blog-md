@@ -17,7 +17,7 @@ export const Route = createFileRoute('/articles/$slug')({
     if (!loaderData) return {}
 
     const { meta } = loaderData
-    const title = `${meta.title} | ${SITE_NAME}`
+    const title = `${meta.title} - ${SITE_NAME}`
     const url = `${SITE_URL}/articles/${params.slug}`
     const ogImage = `${SITE_URL}/og/${params.slug}`
 

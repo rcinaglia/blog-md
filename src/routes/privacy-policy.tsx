@@ -8,7 +8,7 @@ export const Route = createFileRoute('/privacy-policy')({
     head: () => ({
     meta: [
       {
-        title: 'Privacy Policy | cinaglia.dev',
+        title: 'Privacy Policy - cinaglia.dev',
       },
     ]
   }),
@@ -19,13 +19,13 @@ function RouteComponent() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <div className="w-[90%] sm:w-[90%] md:w-[70%] lg:w-[50%] mx-auto sm:mt-25 mt-32 flex flex-col gap-y-7 mb-35 flex-1">
-        <div className='gap-y-3 flex flex-col'>
+        <div className='gap-y-5 flex flex-col'>
           <h1 className='text-4xl font-bold'>Privacy Policy</h1>
-          <p className='text-sm text-white/30'>Ultimo aggiornamento: 24/08/2026</p>
+          <p className='text-xs text-white/70'>(Ultimo aggiornamento: 24/08/2026)</p>
           <p>Questo sito non installa alcun cookie di profilazione, di terze parti o tecnico sul tuo dispositivo. Non esiste quindi un banner di consenso ai cookie, perché non ne vengono usati.</p>
         </div>
         <div className='gap-y-3 flex flex-col'>
-          <h1 className='text-3xl font-bold'>Come raccogliamo i dati</h1>
+          <h1 className='text-3xl font-bold'>Come vengono raccolti i dati</h1>
           <p>
             Per capire come viene utilizzato il sito (numero di visite, pagine più viste, provenienza del traffico) utilizziamo Umami, uno strumento di analisi open source, installato su un nostro server (self-hosted). I dati <b>non vengono condivisi con terze parti</b> e non lasciano la nostra infrastruttura.
           </p>

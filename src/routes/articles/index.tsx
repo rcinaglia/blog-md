@@ -66,12 +66,12 @@ export const Route = createFileRoute('/articles/')({
   head: () => ({
     meta: [
       {
-        title: 'Articles | cinaglia.dev',
+        title: 'Articles - cinaglia.dev',
       },
     ]
   }),
   loader: ({ context: { queryClient } }) =>
-    queryClient.ensureQueryData(articlesQueryOptions(1, EMPTY_FILTERS)),
+    queryClient.query(articlesQueryOptions(1, EMPTY_FILTERS)),
   component: RouteComponent,
 })
 
@@ -105,19 +105,19 @@ function RouteComponent() {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Search..."
-          className="w-full h-10 pl-10 pr-4 border border-white/10 hover:border-white/15 focus:border-white/15 bg-black/25 hover:bg-black/10 focus:bg-black/15 text-white placeholder:text-white/50 outline-none transition-all"
+          className="w-full h-10 pl-10 pr-4 rounded-lg border border-white/10 hover:border-white/15 focus:border-white/15 bg-black/25 hover:bg-black/10 focus:bg-black/15 text-white placeholder:text-white/50 outline-none transition-all"
         />
       </div>
 
       {hasActiveFilters && (
         <div className="flex flex-wrap items-center gap-2 text-sm text-white/50">
           {filters.tags.map((tag) => (
-            <span key={tag} className="px-2 py-0.5 border border-white/10 bg-black/25">
+            <span key={tag} className="px-2 py-0.5 border border-white/10 bg-black/25 rounded-lg">
               tag: {tag}
             </span>
           ))}
           {(filters.dateFrom || filters.dateTo) && (
-            <span className="px-2 py-0.5 border border-white/10 bg-black/25">
+            <span className="px-2 py-0.5 border border-white/10 bg-black/25 rounded-lg">
               {filters.dateFrom ?? '…'} → {filters.dateTo ?? '…'}
             </span>
           )}
@@ -148,7 +148,7 @@ function RouteComponent() {
         {page > 1 && (
           <button
             onClick={() => setPage(p => Math.max(1, p - 1))}
-            className="bg-black/25 border border-white/10 py-3 px-4 cursor-pointer flex gap-x-2 hover:bg-black/10 hover:border-white/15 transition-all"
+            className="bg-black/25 rounded-lg border border-white/10 py-3 px-4 cursor-pointer flex gap-x-2 hover:bg-black/10 hover:border-white/15 transition-all"
           >
             <ChevronLeft />Previous
           </button>
@@ -157,7 +157,7 @@ function RouteComponent() {
         {!data?.isLastPage && (
           <button
             onClick={() => setPage(p => p + 1)}
-            className="bg-black/25 border border-white/10 py-2 px-3 cursor-pointer flex gap-x-2 hover:bg-black/10 hover:border-white/15 transition-all"
+            className="bg-black/25 rounded-lg border border-white/10 py-2 px-3 cursor-pointer flex gap-x-2 hover:bg-black/10 hover:border-white/15 transition-all"
           >
             Next<ChevronRight />
           </button>

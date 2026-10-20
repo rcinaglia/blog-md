@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as ArchiveSplatRouteImport } from './routes/archive/$'
 import { Route as ArticlesIndexRouteImport } from './routes/articles/index'
 import { Route as ArticlesSlugRouteImport } from './routes/articles/$slug'
 import { Route as ContentSplatRouteImport } from './routes/content/$'
@@ -24,6 +25,11 @@ const IndexRoute = IndexRouteImport.update({
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArchiveSplatRoute = ArchiveSplatRouteImport.update({
+  id: '/archive/$',
+  path: '/archive/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArticlesIndexRoute = ArticlesIndexRouteImport.update({
@@ -50,6 +56,7 @@ const OgSlugRoute = OgSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/archive/$': typeof ArchiveSplatRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/content/$': typeof ContentSplatRoute
   '/og/$slug': typeof OgSlugRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/archive/$': typeof ArchiveSplatRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/content/$': typeof ContentSplatRoute
   '/og/$slug': typeof OgSlugRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/archive/$': typeof ArchiveSplatRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/content/$': typeof ContentSplatRoute
   '/og/$slug': typeof OgSlugRoute
@@ -77,6 +86,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/privacy-policy'
+    | '/archive/$'
     | '/articles/$slug'
     | '/content/$'
     | '/og/$slug'
@@ -85,6 +95,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/privacy-policy'
+    | '/archive/$'
     | '/articles/$slug'
     | '/content/$'
     | '/og/$slug'
@@ -93,6 +104,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/privacy-policy'
+    | '/archive/$'
     | '/articles/$slug'
     | '/content/$'
     | '/og/$slug'
@@ -102,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  ArchiveSplatRoute: typeof ArchiveSplatRoute
   ArticlesSlugRoute: typeof ArticlesSlugRoute
   ContentSplatRoute: typeof ContentSplatRoute
   OgSlugRoute: typeof OgSlugRoute
@@ -122,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
       preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/archive/$': {
+      id: '/archive/$'
+      path: '/archive/$'
+      fullPath: '/archive/$'
+      preLoaderRoute: typeof ArchiveSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/articles/': {
@@ -158,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  ArchiveSplatRoute: ArchiveSplatRoute,
   ArticlesSlugRoute: ArticlesSlugRoute,
   ContentSplatRoute: ContentSplatRoute,
   OgSlugRoute: OgSlugRoute,

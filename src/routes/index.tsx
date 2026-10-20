@@ -37,7 +37,7 @@ function Home() {
         <div className='flex flex-col gap-y-10'>
           <div className='flex flex-col sm:flex-row gap-8'>
             <span className='w-50 h-50 rounded-full shrink-0 bg-white/10 overflow-hidden flex items-center justify-center text-4xl font-bold mx-auto sm:mx-0'>
-              <img src="/pfp2.jpg" className='w-full h-full object-cover' />
+              <img src="/pfp_roma.webp" className='w-full h-full object-cover' />
             </span>
             <div className='flex flex-col gap-y-5 justify-center'>
               <div className='flex flex-col gap-y-3'>

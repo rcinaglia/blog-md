@@ -29,7 +29,7 @@ export default function Article({ article }: ArticleProps) {
       <Link
         to="/articles/$slug"
         params={{ slug: article.slug }}
-        className="group border border-white/10 w-full bg-black/25 flex flex-col sm:flex-row overflow-hidden transition-colors duration-200 hover:border-white/15 hover:bg-black/15"
+        className="group rounded-lg border border-white/10 w-full bg-black/25 flex flex-col sm:flex-row overflow-hidden transition-colors duration-200 hover:border-white/15 hover:bg-black/15"
       >
         <div className="sm:w-1/4 shrink-0 overflow-hidden">
           <img
@@ -43,7 +43,7 @@ export default function Article({ article }: ArticleProps) {
             {date}
             <div className='flex flex-row gap-x-2'>
               {article.tags?.map((t) => {
-                return <div key={t} className='line-clamp-1 py-0.5 px-1 border-white/10 bg-black/10 border uppercase text-xs'>
+                return <div key={t} className='line-clamp-1 py-0.5 px-1 border-white/10 bg-black/10 border uppercase text-xs rounded-lg'>
                     {t}
                 </div>
               })}
