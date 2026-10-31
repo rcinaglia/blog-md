@@ -1,197 +1,144 @@
-Welcome to your new TanStack Start app!
+# blog-md
+
+Personal blog and public file archive for [cinaglia.dev](https://cinaglia.dev), built with React, TanStack Start, and Markdown-based article publishing.
+
+## Project Structure
+
+```text
+content/
+├── articles/       Markdown articles
+└── serve/          Static files served through /content/*
+
+public/             Static public assets
+
+src/
+├── components/     Shared React components
+├── functions/      Server functions and content processing
+├── lib/            Shared configuration and integrations
+└── routes/         TanStack file-based routes
+```
+
+## Routes
+
+- `/` — Homepage and latest articles
+- `/articles` — Searchable and filterable article index
+- `/articles/:slug` — Individual article
+- `/archive/*` — S3-backed file archive
+- `/content/*` — Static files from `content/serve`
+- `/og/:slug` — Generated article preview image
+- `/privacy-policy` — Privacy policy
+
 
 # Getting Started
 
-To run this application:
+## Writing Articles
+
+Create a Markdown file in `content/articles/`. The filename becomes the article slug. For example, `content/articles/my-first-post.md` is available at `/articles/my-first-post`.
+
+Articles use frontmatter similar to:
+
+```md
+---
+title: My First Post
+cover_image: /content/images/my-first-post.jpg
+date: 2026-01-15
+tags:
+  - programming
+  - web
+summary: A short description of the article.
+draft: false
+---
+
+Article content goes here.
+```
+
+Articles support tables, raw HTML, syntax highlighting, sanitized HTML output, and copy buttons for code blocks. Set `draft: true` to exclude an article from the public index and article pages.
+To include images, videos etc.., upload them in `content/serve`, then refer to them with `/content/filename.format`.  For example `/content/image.png`.
+
+## Environment Variables
+
+Refer to `.env.example` for an example env file. 
+
+### Content
+
+Directories for articles and other files to be served by the server.
+
+```  
+ARTICLES_DIR=./content/articles
+SERVE_DIR=./content/serve
+```
+
+### S3 Archive
+
+The archive uses an S3-compatible storage provider:
+
+```env
+S3_REGION=
+S3_ENDPOINT=
+S3_ACCESS_KEY_ID=
+S3_ACCESS_KEY_SECRET=
+S3_BUCKET=
+S3_PUBLIC_BUCKET_URL=
+```
+
+### Umami Analytics
+
+Analytics environment variables are optional:
+
+```env
+VITE_UMAMI_SCRIPT_URL=
+VITE_UMAMI_RECORDER_URL=
+VITE_UMAMI_WEBSITE_ID=
+```
+
+Analytics scripts are only added when the corresponding variables are configured.
+
+## Docker
+
+Build and start the application with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+The application will be available at [http://localhost:3000](http://localhost:3000).
+
+Docker Compose mounts `content/articles`, `content/serve`, and `.env.local` into the container. To run it in the background:
+
+```bash
+docker compose up --build -d
+```
+
+## Production Build
+
+Build the application:
+
+```bash
+npm run build
+```
+
+The production output is generated in `.output/`. The Nitro server can be started with:
+
+```bash
+node --env-file=.env.local .output/server/index.mjs
+```
+
+## Development Server
+
+### Requirements
+
+- Node.js 22 or newer
+- npm
+
+Install dependencies and start the development server:
 
 ```bash
 npm install
 npm run dev
 ```
 
-# Building For Production
+The application is available at [http://localhost:3000](http://localhost:3000).
 
-To build this application for production:
+## License
 
-```bash
-npm run build
-```
-
-## Styling
-
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Remove `@tailwindcss/vite` and `tailwindcss` from `package.json`
-
-
-## Deploy with Nitro
-
-This project uses Nitro as a generic server adapter, so it can run on any Node-compatible host.
-
-```bash
-npm run build
-node dist/server/index.mjs
-```
-
-The build output is a self-contained Node server. To deploy, push the `dist/` directory to your host (Render, Fly.io, your own VPS, etc.) and run the server command above.
-
-For host-specific presets (Vercel, Netlify, Cloudflare, AWS Lambda, etc.) and tuning, see https://v3.nitro.build/deploy.
-
-
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+See [LICENSE](LICENSE) for licensing information.

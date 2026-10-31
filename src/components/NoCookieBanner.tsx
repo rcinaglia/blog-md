@@ -25,7 +25,7 @@ export default function NoCookieBanner() {
             <Link to="/privacy-policy" className="text-white/30 underline">Visualizza la Privacy Policy</Link>
         </div>
         <div className="ml-auto flex items-center">
-            <button className="px-4 py-1 bg-white text-black cursor-pointer" onClick={closeBanner}>Capito, chiudi</button>
+            <button className="px-4 py-1 bg-white text-black cursor-pointer rounded-lg" onClick={closeBanner}>Capito, chiudi</button>
         </div>
     </div>
 }
